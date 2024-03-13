@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "HorizonsEdgeCharacterMovementComponent.h"
 #include "HorizonsEdgeCharacter.generated.h"
 
 class UInputComponent;
@@ -22,26 +23,23 @@ class AHorizonsEdgeCharacter : public ACharacter
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
-
-	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
-
-	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
-
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* JumpAction;
-
-	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) UHorizonsEdgeCharacterMovementComponent* HorizonsEdgeCharacterMovementComponent;
 
 	
 public:
-	AHorizonsEdgeCharacter();
+	AHorizonsEdgeCharacter(const FObjectInitializer& ObjectInitializer);
+
+public:
+	bool bPressedJump;
 
 protected:
 	virtual void BeginPlay();
@@ -81,7 +79,8 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+	UFUNCTION(BlueprintPure) FORCEINLINE UHorizonsEdgeCharacterMovementComponent* GetHorizonsEdgeCharacterMovement() const { return HorizonsEdgeCharacterMovementComponent; }
 
-
+	FCollisionQueryParams GetIgnoreCharacterParams() const;
 };
 
