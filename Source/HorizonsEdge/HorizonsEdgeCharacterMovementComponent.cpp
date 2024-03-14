@@ -216,6 +216,7 @@ bool UHorizonsEdgeCharacterMovementComponent::DoJump(bool bReplayingMoves)
 // Movement Pipeline
 void UHorizonsEdgeCharacterMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSeconds)
 {
+	SLOG("Updating charac state b4 mov");
 	if (IsFalling() && bWantsToCrouch)
 	{
 		if (TryClimb()) bWantsToCrouch = false;
@@ -225,33 +226,34 @@ void UHorizonsEdgeCharacterMovementComponent::UpdateCharacterStateBeforeMovement
 		SetMovementMode(MOVE_Falling);
 		bWantsToCrouch = false;
 	}
-
+	
+	SLOG("Checking for jump");
 	// Try Mantle
 	if (HorizonsEdgeCharacterOwner->bPressedJump)
 	{
-		SLOG("Trying HorizonsEdgejump")
-			if (TryMantle())
-			{
-				HorizonsEdgeCharacterOwner->StopJumping();
-			}
-			else if (TryHang())
-			{
+		SLOG("Trying HorizonsEdgejump");
+		if (TryMantle())
+		{
+			HorizonsEdgeCharacterOwner->StopJumping();
+		}
+		else if (TryHang())
+		{
 
-				HorizonsEdgeCharacterOwner->StopJumping();
-			}
-			else
-			{
-				SLOG("Failed Mantle, Reverting to jump")
-					HorizonsEdgeCharacterOwner->bPressedJump = false;
-				CharacterOwner->bPressedJump = true;
-				CharacterOwner->CheckJumpInput(DeltaSeconds);
-				bOrientRotationToMovement = true;
+			HorizonsEdgeCharacterOwner->StopJumping();
+		}
+		else
+		{
+			SLOG("Failed Mantle, Reverting to jump");
+			HorizonsEdgeCharacterOwner->bPressedJump = false;
+			CharacterOwner->bPressedJump = true;
+			CharacterOwner->CheckJumpInput(DeltaSeconds);
+			//bOrientRotationToMovement = true;
 
-			}
+		}
 
 	}
 
-	// Transition
+	// Transition 
 	if (Safe_bTransitionFinished)
 	{
 		SLOG("Transition Finished")
@@ -333,7 +335,7 @@ void UHorizonsEdgeCharacterMovementComponent::OnMovementModeChanged(EMovementMod
 
 	if (IsFalling())
 	{
-		bOrientRotationToMovement = true;
+		//bOrientRotationToMovement = true;
 	}
 }
 
@@ -519,7 +521,7 @@ bool UHorizonsEdgeCharacterMovementComponent::TryMantle()
 	TransitionRMS_ID = ApplyRootMotionSource(TransitionRMS);
 	TransitionName = "Mantle";
 
-	// Animations
+	// Animations - this is probably the issue
 	if (bTallMantle)
 	{
 		TransitionQueuedMontage = TallMantleMontage;
@@ -605,7 +607,7 @@ bool UHorizonsEdgeCharacterMovementComponent::TryHang()
 
 	// Passed all conditions
 
-	bOrientRotationToMovement = false;
+	//bOrientRotationToMovement = false;
 
 	// Perform Transition to Climb Point
 	float UpSpeed = Velocity | FVector::UpVector;
@@ -648,7 +650,7 @@ bool UHorizonsEdgeCharacterMovementComponent::TryClimb()
 
 	SetMovementMode(MOVE_Custom, CMOVE_Climb);
 
-	bOrientRotationToMovement = false;
+	//bOrientRotationToMovement = false;
 
 	return true;
 }
@@ -753,6 +755,7 @@ void UHorizonsEdgeCharacterMovementComponent::GetLifetimeReplicatedProps(TArray<
 		DOREPLIFETIME_CONDITION(UHorizonsEdgeCharacterMovementComponent, Proxy_bTallMantle, COND_SkipOwner)
 }
 
+//problem pt2
 void UHorizonsEdgeCharacterMovementComponent::OnRep_ShortMantle()
 {
 	CharacterOwner->PlayAnimMontage(ProxyShortMantleMontage);
