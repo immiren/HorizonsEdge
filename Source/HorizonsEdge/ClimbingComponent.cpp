@@ -13,7 +13,7 @@ void UClimbingComponent::OnClicked(const FVector& ClimbPointLocation)
 
 	//start and end points
 	FVector TargetLocation = ClimbPointLocation + CapR() * 1.01f+ FVector::DownVector * CapHH();
-	FVector CurrentLocation = UpdatedComponent->GetComponentLocation();
+	FVector CurrentLocation = HorizonsEdgeCharacterOwner->GetActorLocation();	//tai UpdatedComponent->GetComponentLocation();
 
 	SetMovementMode(MOVE_Flying); // removes gravity
 

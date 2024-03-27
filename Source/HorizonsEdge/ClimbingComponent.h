@@ -19,7 +19,7 @@ class HORIZONSEDGE_API UClimbingComponent : public UCharacterMovementComponent
 	// Climb
 	UPROPERTY(EditDefaultsOnly) float MaxClimbSpeed = 300.f;
 public:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable) //Blueprint not working well : |
 		void OnClicked(const FVector& ClimbPointLocation);
 		
 protected:
