@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "HorizonsEdgeCharacter.h"
-#include "HorizonsEdgeCharacterMovementComponent.h"
+#include "ClimbingComponent.h"
 #include "HorizonsEdgeProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"

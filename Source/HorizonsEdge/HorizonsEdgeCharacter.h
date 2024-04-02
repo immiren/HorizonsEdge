@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
-#include "HorizonsEdgeCharacterMovementComponent.h"
+#include "ClimbingComponent.h"
 #include "HorizonsEdgeCharacter.generated.h"
 
 class UInputComponent;
@@ -32,7 +32,7 @@ class AHorizonsEdgeCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) UHorizonsEdgeCharacterMovementComponent* HorizonsEdgeCharacterMovementComponent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) UClimbingComponent* ClimbingComponent;
 
 	
 public:
@@ -79,7 +79,7 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-	UFUNCTION(BlueprintPure) FORCEINLINE UHorizonsEdgeCharacterMovementComponent* GetHorizonsEdgeCharacterMovement() const { return HorizonsEdgeCharacterMovementComponent; }
+	UFUNCTION(BlueprintPure) FORCEINLINE UClimbingComponent* GetClimbing() const { return ClimbingComponent; }
 
 	FCollisionQueryParams GetIgnoreCharacterParams() const;
 };

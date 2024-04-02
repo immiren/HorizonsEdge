@@ -33,10 +33,10 @@ void UClimbingComponent::InitializeComponent()
 
 float UClimbingComponent::CapR() const
 {
-	return CharacterOwner->GetCapsuleComponent()->GetScaledCapsuleRadius();
+	return HorizonsEdgeCharacterOwner->GetCapsuleComponent()->GetScaledCapsuleRadius();
 }
 
 float UClimbingComponent::CapHH() const
 {
-	return CharacterOwner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+	return HorizonsEdgeCharacterOwner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 }
