@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "HorizonsEdgeCharacter.h"
+#include "ClimbingComponent.h"
 #include "HorizonsEdgeProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -12,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////
 // AHorizonsEdgeCharacter
 
-AHorizonsEdgeCharacter::AHorizonsEdgeCharacter()
+AHorizonsEdgeCharacter::AHorizonsEdgeCharacter(const FObjectInitializer& ObjectInitializer)
 {
 	// Character doesnt have a rifle at start
 	bHasRifle = false;
@@ -70,6 +71,18 @@ void AHorizonsEdgeCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AHorizonsEdgeCharacter::Look);
 	}
+}
+
+FCollisionQueryParams AHorizonsEdgeCharacter::GetIgnoreCharacterParams() const
+{
+	FCollisionQueryParams Params;
+
+	TArray<AActor*> CharacterChildren;
+	GetAllChildActors(CharacterChildren);
+	Params.AddIgnoredActors(CharacterChildren);
+	Params.AddIgnoredActor(this);
+
+	return Params;
 }
 
 

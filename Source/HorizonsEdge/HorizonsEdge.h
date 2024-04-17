@@ -3,3 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+class AHorizonsEdgeCharacter;
+class AHorizonsEdgeCharacterMovementComponent;
