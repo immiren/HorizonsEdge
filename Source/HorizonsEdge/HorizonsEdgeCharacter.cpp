@@ -1,8 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "HorizonsEdgeCharacter.h"
-#include "ClimbingComponent.h"
-#include "HorizonsEdgeProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -15,9 +13,6 @@
 
 AHorizonsEdgeCharacter::AHorizonsEdgeCharacter(const FObjectInitializer& ObjectInitializer)
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
-	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
@@ -110,14 +105,4 @@ void AHorizonsEdgeCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
-}
-
-void AHorizonsEdgeCharacter::SetHasRifle(bool bNewHasRifle)
-{
-	bHasRifle = bNewHasRifle;
-}
-
-bool AHorizonsEdgeCharacter::GetHasRifle()
-{
-	return bHasRifle;
 }
