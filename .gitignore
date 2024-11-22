@@ -73,3 +73,4 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 Content/InteractableObjects/BP_SimpleSwitch.uasset
+Content/.DS_Store
