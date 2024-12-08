@@ -370,6 +370,10 @@
 		{
 			"Name": "StaticMeshEditorModeling",
 			"Enabled": true
+		},
+		{
+			"Name": "MovieRenderPipeline",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
